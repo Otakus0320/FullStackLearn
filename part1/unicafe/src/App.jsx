@@ -15,18 +15,42 @@ const Button = (props) => (
 const Board = (props) => {
     return (
         <div>
-            <p>{props.text}</p>
+            <p>{props.text} {props.count}</p>
+        </div>
+    )
+}
+
+const Average = ({good, bad, total}) => {
+    let score = good - bad
+    if (total <= 0) total = 1
+    return (
+        <div>
+            <p>average {score/total}</p>
+        </div>
+    )
+}
+
+const Positive = ({good, total}) => {
+    if (total <= 0) total = 1
+    return (
+        <div>
+            <p>positive {good/total*100} %</p>
         </div>
     )
 }
 
 const TotalBoard = (props) => {
+    console.log(props)
+    let total = props.good + props.neutral + props.bad
     return (
         <div>
             <h2>statistics</h2>
-            <Board text={props.good} />
-            <Board text={props.neutral} />
-            <Board text={props.bad} />
+            <Board count={props.good} text="good"/>
+            <Board count={props.neutral} text="neutral"/>
+            <Board count={props.bad} text="bad"/>
+            <Board count={total} text="all"/>
+            <Average good={props.good} bad={props.bad} total={total}/>
+            <Positive good={props.good} total={total} text="positive"/>
 
         </div>
     )
