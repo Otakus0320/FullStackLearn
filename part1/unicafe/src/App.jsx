@@ -22,7 +22,6 @@ const Board = (props) => {
 
 const Average = ({good, bad, total}) => {
     let score = good - bad
-    if (total <= 0) total = 1
     return (
         <div>
             <p>average {score/total}</p>
@@ -31,7 +30,6 @@ const Average = ({good, bad, total}) => {
 }
 
 const Positive = ({good, total}) => {
-    if (total <= 0) total = 1
     return (
         <div>
             <p>positive {good/total*100} %</p>
@@ -39,21 +37,30 @@ const Positive = ({good, total}) => {
     )
 }
 
-const TotalBoard = (props) => {
-    console.log(props)
+const Statistics = (props) => {
     let total = props.good + props.neutral + props.bad
-    return (
-        <div>
-            <h2>statistics</h2>
-            <Board count={props.good} text="good"/>
-            <Board count={props.neutral} text="neutral"/>
-            <Board count={props.bad} text="bad"/>
-            <Board count={total} text="all"/>
-            <Average good={props.good} bad={props.bad} total={total}/>
-            <Positive good={props.good} total={total} text="positive"/>
+    if (total <= 0) {
+        return (
+            <div>
+                <h2>statistics</h2>
+                <p>No feedback given</p>
+            </div>
+        )
+    }else{
+        return (
+            <div>
+                <h2>statistics</h2>
+                <Board count={props.good} text="good"/>
+                <Board count={props.neutral} text="neutral"/>
+                <Board count={props.bad} text="bad"/>
+                <Board count={total} text="all"/>
+                <Average good={props.good} bad={props.bad} total={total}/>
+                <Positive good={props.good} total={total} text="positive"/>
 
-        </div>
-    )
+            </div>
+        )
+    }
+
 }
 
 const App = () => {
@@ -81,7 +88,7 @@ const App = () => {
             <Button onClick={setToValueNeutral(neutral+1)} text="neutral"/>
             <Button onClick={setToValueBad(bad+1)} text="bad"/>
 
-            <TotalBoard good={good} neutral={neutral} bad={bad} />
+            <Statistics good={good} neutral={neutral} bad={bad} />
         </div>
     )
 }
