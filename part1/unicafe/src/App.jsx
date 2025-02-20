@@ -1,46 +1,38 @@
 import { useState } from 'react'
 
-const Title = () => {
+const Button = ({onClick, text}) => (
+        <button onClick={onClick}>{text}</button>
+    )
+
+const StatisticLine = ({text, value}) => {
     return (
-        <div>
-            <h1>give feedback</h1>
-        </div>
+        <tr>
+            <td>{text}</td>
+            <td>{value}</td>
+        </tr>
     )
 }
 
-const Button = (props) => (
-        <button onClick={props.onClick}>{props.text}</button>
-    )
-
-const StatisticLine = (props) => {
-    return (
-        <div>
-            <p>{props.text} {props.value}</p>
-        </div>
-    )
-}
-
-const Statistics = (props) => {
-    let total = props.good + props.neutral + props.bad
+const Statistics = ({good, neutral, bad}) => {
+    let total = good + neutral + bad
     if (total <= 0) {
         return (
             <div>
-                <h2>statistics</h2>
                 <p>No feedback given</p>
             </div>
         )
     }else{
         return (
-            <div>
-                <h2>statistics</h2>
-                <StatisticLine value={props.good} text="good"/>
-                <StatisticLine value={props.neutral} text="neutral"/>
-                <StatisticLine value={props.bad} text="bad"/>
-                <StatisticLine value={total} text="all"/>
-                <StatisticLine value={(props.good - props.bad)/total} text="average"/>
-                <StatisticLine value={props.good/total*100 + " %"} text="positive"/>
-
-            </div>
+            <table>
+                <tbody>
+                    <StatisticLine value={good} text="good"/>
+                    <StatisticLine value={neutral} text="neutral"/>
+                    <StatisticLine value={bad} text="bad"/>
+                    <StatisticLine value={total} text="all"/>
+                    <StatisticLine value={(good - bad)/total} text="average"/>
+                    <StatisticLine value={good/total*100 + " %"} text="positive"/>
+                </tbody>
+            </table>
         )
     }
 
@@ -66,11 +58,11 @@ const App = () => {
 
     return (
         <div>
-            <Title />
+            <h1>give feedback</h1>
             <Button onClick={setToValueGood(good+1)} text="good"/>
             <Button onClick={setToValueNeutral(neutral+1)} text="neutral"/>
             <Button onClick={setToValueBad(bad+1)} text="bad"/>
-
+            <h2>statistics</h2>
             <Statistics good={good} neutral={neutral} bad={bad} />
         </div>
     )
