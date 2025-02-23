@@ -1,4 +1,4 @@
-import Person from "./Person.jsx";
+import Person from "./Person.jsx"
 
 const Persons = ({persons, filter}) => {
     persons = filter ? persons.filter(({name}) => name.toLowerCase().includes(filter.toLowerCase())) : persons

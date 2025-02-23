@@ -1,4 +1,5 @@
 import {useState} from "react";
+import axios from "axios"
 
 const PersonForm = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
@@ -8,12 +9,19 @@ const PersonForm = ({persons, setPersons}) => {
         event.preventDefault()
         const person = {
             name: newName,
-            phone: newPhone
+            phone: newPhone,
+            id: String(persons.length + 1)
         }
+        console.log(typeof person.id)
         if (persons.some(({name}) => name === newName)){
             alert(`${newName} is already added to phone book!`)
         }else {
-            setPersons([...persons, person])
+            axios
+                .post("http://localhost:3001/persons", person)
+                .then(response => {
+                    console.log(response)
+                    setPersons([...persons, response.data])
+                })
         }
         setNewName('')
         setNewPhone('')
