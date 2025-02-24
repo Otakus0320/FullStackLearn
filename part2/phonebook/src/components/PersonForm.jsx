@@ -1,7 +1,7 @@
 import {useState} from "react"
 import personService from "../services/persons.js"
 
-const PersonForm = ({persons, setPersons}) => {
+const PersonForm = ({setAddMessage, persons, setPersons}) => {
     const [newName, setNewName] = useState('')
     const [newPhone, setNewPhone] = useState('')
 
@@ -17,9 +17,9 @@ const PersonForm = ({persons, setPersons}) => {
         }else {
             personService
                 .create(person)
-                .then(data => {
-                    setPersons([...persons, data])
-                })
+                .then(data => {setPersons([...persons, data])})
+                .then(() => {setAddMessage(`Added ${newName}`)})
+            setTimeout(() => setAddMessage(""), 2000)
         }
         setNewName('')
         setNewPhone('')
@@ -34,10 +34,16 @@ const PersonForm = ({persons, setPersons}) => {
     }
     return (
         <form onSubmit={addPerson}>
-            <div>
-                <div>name: <input value={newName} onChange={handelNewName} /></div>
-                <div>number: <input value={newPhone} onChange={handelNewPhone} /></div>
-            </div>
+            <table>
+                <tbody>
+                <tr>
+                    <td>name:</td><td><input value={newName} onChange={handelNewName} /></td>
+                </tr>
+                <tr>
+                    <td>number:</td><td><input value={newPhone} onChange={handelNewPhone} /></td>
+                </tr>
+                </tbody>
+            </table>
             <div>
                 <button type="submit">add</button>
             </div>
