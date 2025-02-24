@@ -1,5 +1,4 @@
-import {useState} from "react";
-import axios from "axios"
+import {useState} from "react"
 import personService from "../services/persons.js"
 
 const PersonForm = ({persons, setPersons}) => {
