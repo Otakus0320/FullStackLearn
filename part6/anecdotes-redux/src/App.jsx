@@ -1,22 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux'
-import {createVote} from "./reducers/anecdoteReducer.js";
+import {createVote, addVotes} from "./reducers/anecdoteReducer.js";
 const App = () => {
   const anecdotes = useSelector(state => state)
   const dispatch = useDispatch()
 
-  const vote = (id) => {
-    dispatch({
-        type: 'ADD_VOTE',
-        payload: {id}
-    })
-  }
+    const vote = (id) => {
+        dispatch(addVotes(id))
+    }
 
-  const addVote = (event) => {
-      event.preventDefault()
-      const content = event.target.vote.value
-      event.target.vote.value = ''
-      dispatch(createVote(content))
-  }
+    const addVote = (event) => {
+        event.preventDefault()
+        const content = event.target.vote.value
+        event.target.vote.value = ''
+        dispatch(createVote(content))
+    }
 
   return (
     <div>

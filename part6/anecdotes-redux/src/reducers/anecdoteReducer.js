@@ -28,6 +28,14 @@ export const createVote = (content) => {
   }
 }
 
+export const addVotes = (id) => {
+  return {
+    type: 'ADD_VOTE',
+    payload: {id}
+  }
+}
+
+
 const initialState = anecdotesAtStart.map(asObject)
 
 const reducer = (state = initialState, action) => {
@@ -36,7 +44,9 @@ const reducer = (state = initialState, action) => {
       const id = action.payload.id
       const voteToChange = state.find(vote => vote.id === id)
       const changedVote = {...voteToChange, votes: voteToChange.votes+1}
-      return state.map(vote => vote.id !== id ? vote : changedVote)
+      return state
+          .map(vote => vote.id !== id ? vote : changedVote)
+          .sort((a, b) => b.votes - a.votes)
     }
     case 'ADD_NEW_VOTE':{
       return [...state, action.payload]
