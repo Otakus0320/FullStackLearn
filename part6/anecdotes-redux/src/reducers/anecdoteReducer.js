@@ -15,7 +15,7 @@ const asObject = (anecdote) => {
   return {
     content: anecdote,
     id: getId(),
-    votes: 0
+    votes: Number((20 * Math.random()).toFixed(0))
   }
 }
 
@@ -23,7 +23,7 @@ const initialState = anecdotesAtStart.map(asObject)
 
 const voteSlice = createSlice({
   name: "votes",
-  initialState,
+  initialState: [...initialState].sort((a, b) => b.votes - a.votes),
   reducers: {
     createVote(state, action) {
       console.log(state)
