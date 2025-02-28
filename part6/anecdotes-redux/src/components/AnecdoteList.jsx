@@ -7,7 +7,6 @@ const AnecdoteList = () => {
         if(filter === ""){
             return votes
         }else {
-            console.log(votes)
             return votes.filter((item) => item.content.includes(filter))
         }
     })
