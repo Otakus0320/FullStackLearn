@@ -1,5 +1,6 @@
 import {createVote} from "../reducers/anecdoteReducer.js";
 import {useDispatch} from "react-redux";
+import {setNotification} from "../reducers/notificationReducer.js";
 
 const AnecdoteForm = () => {
     const dispatch = useDispatch()
@@ -8,6 +9,7 @@ const AnecdoteForm = () => {
         const content = event.target.vote.value
         event.target.vote.value = ''
         dispatch(createVote(content))
+        dispatch(setNotification("you added ".concat(content)))
     }
     return (
         <div>
