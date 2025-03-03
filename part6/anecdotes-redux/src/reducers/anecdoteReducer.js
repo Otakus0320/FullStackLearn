@@ -8,12 +8,7 @@ const voteSlice = createSlice({
   reducers: {
     createVote(state, action) {
       console.log(state)
-      const content = action.payload
-      state.push({
-        content: content,
-        id: getId(),
-        votes: 0
-      })
+      state.push(action.payload)
     },
     addVotes(state, action) {
       const id = action.payload
