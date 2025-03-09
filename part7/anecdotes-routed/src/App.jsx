@@ -8,6 +8,7 @@ import CreateNew from './components/CreateNew'
 import Menu from "./components/Menu.jsx"
 import About from './components/About'
 import Footer from './components/Footer'
+import Anecdote from './components/Anecdote'
 
 const App = () => {
     const [anecdotes, setAnecdotes] = useState([
@@ -21,7 +22,7 @@ const App = () => {
         {
             content: 'Premature optimization is the root of all evil',
             author: 'Donald Knuth',
-            info: 'http://wiki.c2.com/?PrematureOptimization',
+            info: 'https://wiki.c2.com/?PrematureOptimization',
             votes: 0,
             id: 2
         }
@@ -53,6 +54,7 @@ const App = () => {
             <h1>Software anecdotes</h1>
             <Menu/>
             <Routes>
+                <Route path="/anecdotes/:id" element={<Anecdote anecdotes={anecdotes} />} />
                 <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />}/>
                 <Route path="/create" element={<CreateNew addNew={addNew}/>} />
                 <Route path="/about" element={<About/>}/>
