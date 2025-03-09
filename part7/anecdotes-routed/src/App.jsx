@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {
     BrowserRouter as Router,
     Routes, Route
@@ -9,6 +9,7 @@ import Menu from "./components/Menu.jsx"
 import About from './components/About'
 import Footer from './components/Footer'
 import Anecdote from './components/Anecdote'
+import Notification from "./components/Notification.jsx"
 
 const App = () => {
     const [anecdotes, setAnecdotes] = useState([
@@ -49,14 +50,27 @@ const App = () => {
         setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
     }
 
+    useEffect(() => {
+        if (notification) {
+            const timer = setTimeout(() => {
+                setNotification('');
+            }, 2000);
+
+            // 清理定时器
+            return () => clearTimeout(timer);
+        }
+    }, [notification]);
+
     return (
         <Router>
             <h1>Software anecdotes</h1>
             <Menu/>
+            {notification && <Notification notification={notification} />}
+
             <Routes>
                 <Route path="/anecdotes/:id" element={<Anecdote anecdotes={anecdotes} />} />
                 <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />}/>
-                <Route path="/create" element={<CreateNew addNew={addNew}/>} />
+                <Route path="/create" element={<CreateNew addNew={addNew} setNotification={setNotification} />} />
                 <Route path="/about" element={<About/>}/>
             </Routes>
             <Footer/>
