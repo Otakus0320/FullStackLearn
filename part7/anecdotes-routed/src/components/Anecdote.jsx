@@ -5,7 +5,7 @@ const Anecdote = ({anecdotes}) => {
     const anecdote = anecdotes.find(anecdote => anecdote.id === Number(id))
     return (
         <div>
-            <h2>{anecdote.content}</h2>
+            <h2>{anecdote.content} By {anecdote.author}</h2>
             <div>has {anecdote.votes} votes</div>
             <div>for more info see <a href={anecdote.info}>{anecdote.info}</a></div>
         </div>
