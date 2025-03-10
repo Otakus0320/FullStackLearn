@@ -6,15 +6,17 @@ const useField = (name) => {
         setValue(e.target.value)
     }
 
-    const clear = () => {
+    const reset = () => {
         setValue('')
     }
 
     return {
-        name,
-        value,
-        onChange,
-        clear,
+        fieldProps:{
+            name,
+            value,
+            onChange
+        },
+        reset,
     }
 }
 export default useField

@@ -10,9 +10,9 @@ const CreateNew = ({addNew, setNotification}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         addNew({
-            content: content.value,
-            author: author.value,
-            info: info.value,
+            content: content.fieldProps.value,
+            author: author.fieldProps.value,
+            info: info.fieldProps.value,
             votes: 0
         })
         setNotification(content.value)
@@ -21,9 +21,9 @@ const CreateNew = ({addNew, setNotification}) => {
 
     const handelClear = (e) => {
         e.preventDefault()
-        content.clear()
-        author.clear()
-        info.clear()
+        content.reset()
+        author.reset()
+        info.reset()
     }
 
     return (
@@ -32,15 +32,15 @@ const CreateNew = ({addNew, setNotification}) => {
             <form onSubmit={handleSubmit}>
                 <div>
                     content
-                    <input name={content.name} value={content.value} onChange={content.onChange} />
+                    <input {...content.fieldProps} />
                 </div>
                 <div>
                     author
-                    <input name={author.name} value={author.value} onChange={author.onChange} />
+                    <input {...author.fieldProps} />
                 </div>
                 <div>
                     url for more info
-                    <input name={info.name} value={info.value} onChange={info.onChange} />
+                    <input {...info.fieldProps} />
                 </div>
                 <button type="submit" >create</button>
                 <button type='button' onClick={handelClear} >reset</button>
