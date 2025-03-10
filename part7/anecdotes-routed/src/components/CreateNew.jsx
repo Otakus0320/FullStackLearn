@@ -19,6 +19,13 @@ const CreateNew = ({addNew, setNotification}) => {
         navigate("/")
     }
 
+    const handelClear = (e) => {
+        e.preventDefault()
+        content.clear()
+        author.clear()
+        info.clear()
+    }
+
     return (
         <div>
             <h2>create a new anecdote</h2>
@@ -36,7 +43,7 @@ const CreateNew = ({addNew, setNotification}) => {
                     <input name={info.name} value={info.value} onChange={info.onChange} />
                 </div>
                 <button type="submit" >create</button>
-                <button type='button' >reset</button>
+                <button type='button' onClick={handelClear} >reset</button>
             </form>
         </div>
     )

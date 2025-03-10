@@ -6,10 +6,15 @@ const useField = (name) => {
         setValue(e.target.value)
     }
 
+    const clear = () => {
+        setValue('')
+    }
+
     return {
         name,
         value,
         onChange,
+        clear,
     }
 }
 export default useField
