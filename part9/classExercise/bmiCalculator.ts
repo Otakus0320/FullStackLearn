@@ -3,10 +3,13 @@ const calculateBmi = (height: number, weight: number): string => {
     let bmi: number = weight / (height * height)
     if (bmi >= 18.5 || bmi <= 24){
         return "Normal Range"
+    }else if (bmi >= 24){
+        return "Overweight"
     }else {
-        return "Abnormal Range"
+        return "Over Light"
     }
-
 }
 
-console.log(calculateBmi(180, 74));
+const height: number = Number(process.argv[2]);
+const weight: number = Number(process.argv[3]);
+console.log(calculateBmi(height, weight));
