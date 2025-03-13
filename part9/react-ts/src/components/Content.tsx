@@ -1,14 +1,10 @@
-type Course = {
-    name: string,
-    exerciseCount: number
-};
+import Part from "./Part.tsx";
+import {CoursePart} from "../types.ts";
 
-type CourseParts = Array<Course>;
-
-const Content = ({courseParts}: {courseParts: CourseParts}) => {
+const Content = ({courseParts}: {courseParts: CoursePart[]}) => {
     return (
         <div>
-            {courseParts.map((course: Course) => <p>{course.name} {course.exerciseCount}</p>)}
+            {courseParts.map((coursePart: CoursePart) => <Part coursePart={coursePart} />)}
         </div>
     );
 };
